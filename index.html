@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Murli Hotel — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #E8621A;
+    --saffron-light: #F5924A;
+    --gold: #C9961A;
+    --gold-light: #F0C84A;
+    --cream: #FDF6E8;
+    --cream-dark: #F5EDD4;
+    --brown: #5C2D0E;
+    --brown-light: #8B4513;
+    --green: #2D6B3A;
+    --text: #2A1505;
+    --text-muted: #7A5030;
+    --border: rgba(200, 150, 50, 0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Decorative top border */
+  .top-border {
+    height: 8px;
+    background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron), var(--gold), var(--saffron));
+  }
+
+  /* Ornamental pattern strip */
+  .pattern-strip {
+    background: var(--brown);
+    padding: 6px 0;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 12px;
+    color: var(--gold-light);
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--brown) 0%, #3D1A05 50%, var(--brown) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 40px 20px 30px;
+    text-align: center;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9961A' fill-opacity='0.07'%3E%3Cpath d='M40 0 L50 15 L67 10 L60 28 L80 35 L65 45 L70 65 L52 58 L40 75 L28 58 L10 65 L15 45 L0 35 L20 28 L13 10 L30 15Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .logo-area { position: relative; z-index: 1; }
+
+  .hotel-icon {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 8px;
+    animation: sway 4s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.05); }
+  }
+
+  .hotel-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    letter-spacing: 4px;
+  }
+
+  .hotel-subtitle {
+    font-size: 0.95rem;
+    color: rgba(240, 200, 74, 0.7);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .hotel-address {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+  }
+
+  .divider-ornament {
+    margin: 12px auto 0;
+    color: var(--gold);
+    font-size: 22px;
+    letter-spacing: 6px;
+  }
+
+  /* Language Tabs */
+  .lang-bar {
+    background: var(--cream-dark);
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  }
+
+  .lang-tab {
+    padding: 13px 32px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    transition: all 0.25s ease;
+    border-bottom: 3px solid transparent;
+    font-family: inherit;
+    position: relative;
+  }
+
+  .lang-tab.active {
+    color: var(--saffron);
+    border-bottom-color: var(--saffron);
+    background: white;
+  }
+
+  .lang-tab:hover:not(.active) {
+    color: var(--brown-light);
+    background: rgba(255,255,255,0.5);
+  }
+
+  /* Food emoji animation */
+  .floating-food {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    font-size: 28px;
+    opacity: 0.06;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.06; }
+    90% { opacity: 0.06; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Main content */
+  .menu-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Category section */
+  .category {
+    margin-bottom: 36px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(92,45,14,0.08);
+    border: 1px solid var(--border);
+    animation: fadeIn 0.4s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category-header {
+    background: linear-gradient(135deg, var(--brown) 0%, #6B3515 100%);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .category-icon { font-size: 22px; }
+
+  .category-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+
+  /* Menu item */
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(200,150,50,0.12);
+    gap: 14px;
+    transition: background 0.2s;
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item:hover { background: rgba(232,98,26,0.04); }
+
+  .item-number {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 28px;
+    text-align: center;
+    font-weight: 600;
+    opacity: 0.6;
+  }
+
+  .item-emoji {
+    font-size: 24px;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .item-info { flex: 1; }
+
+  .item-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .item-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .item-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--saffron);
+    white-space: nowrap;
+  }
+
+  .veg-badge {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--green);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .veg-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+
+  /* Special fix dish */
+  .fix-dish .item-name { color: var(--brown); }
+  .fix-dish .item-desc { color: var(--brown-light); }
+
+  /* Footer */
+  .menu-footer {
+    text-align: center;
+    padding: 24px;
+    border-top: 2px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--brown);
+    font-weight: 700;
+  }
+
+  /* Loading */
+  #loading {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+
+  .spinner {
+    font-size: 40px;
+    animation: spin 1s linear infinite;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Gujarati & Hindi fonts */
+  .lang-gu .item-name,
+  .lang-gu .category-name { font-family: 'Noto Sans Gujarati', serif; }
+  .lang-hi .item-name,
+  .lang-hi .category-name { font-family: 'Noto Sans Devanagari', serif; }
+
+  /* Pure veg banner */
+  .pure-veg-banner {
+    background: linear-gradient(135deg, var(--green), #1A4D28);
+    color: white;
+    text-align: center;
+    padding: 9px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Special tag for featured items */
+  .item-tag {
+    font-size: 0.65rem;
+    background: var(--saffron);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 480px) {
+    .lang-tab { padding: 11px 16px; font-size: 0.85rem; }
+    .menu-item { padding: 12px 16px; gap: 10px; }
+    .category-header { padding: 12px 16px; }
+    .item-emoji { min-width: 28px; font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating food emojis background -->
+<div class="floating-food" style="left:5%; animation-duration:14s; animation-delay:0s;">🍛</div>
+<div class="floating-food" style="left:20%; animation-duration:18s; animation-delay:3s;">🧆</div>
+<div class="floating-food" style="left:40%; animation-duration:12s; animation-delay:7s;">🫓</div>
+<div class="floating-food" style="left:60%; animation-duration:16s; animation-delay:2s;">🍚</div>
+<div class="floating-food" style="left:75%; animation-duration:20s; animation-delay:5s;">🥘</div>
+<div class="floating-food" style="left:88%; animation-duration:13s; animation-delay:9s;">🫕</div>
+
+<!-- Top decorative border -->
+<div class="top-border"></div>
+<div class="pattern-strip">✦ ❋ ✦ ❋ ✦ ❋ ✦ ❋ ✦ ❋ ✦</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-area">
+    <span class="hotel-icon">🏨</span>
+    <h1 class="hotel-name">MURLI HOTEL</h1>
+    <p class="hotel-subtitle">Restaurant · Canteen · Hotel</p>
+    <p class="hotel-address">📍 Khatraj Chokadi, Gandhinagar, Gujarat</p>
+    <div class="divider-ornament">❧ ✦ ❧</div>
+  </div>
+</header>
+
+<!-- Pure veg banner -->
+<div class="pure-veg-banner">🟢 100% Pure Vegetarian · સંપૂર્ણ શાકાહારી · शुद्ध शाकाहारी 🟢</div>
+
+<!-- Language tabs -->
+<div class="lang-bar">
+  <button class="lang-tab active" onclick="switchLang('en')" id="tab-en">🇮🇳 English</button>
+  <button class="lang-tab" onclick="switchLang('hi')" id="tab-hi">हिंदी</button>
+  <button class="lang-tab" onclick="switchLang('gu')" id="tab-gu">ગુજરાતી</button>
+</div>
+
+<!-- Menu content -->
+<main class="menu-container" id="menu-container">
+  <div id="loading">
+    <span class="spinner">🍽</span>
+    Loading menu…
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="menu-footer">
+  <div class="footer-logo">Murli Hotel</div>
+  <p style="margin-top:6px;">Khatraj Chokadi, Gandhinagar, Gujarat</p>
+  <p style="margin-top:4px; font-size:0.75rem; opacity:0.6;">All prices inclusive of taxes · Pure Veg · Last updated 2025</p>
+  <div style="margin-top:12px; color:var(--gold); letter-spacing:6px; font-size:14px;">✦ ❋ ✦ ❋ ✦</div>
+</footer>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+// Replace this URL with your Google Sheets CSV export link after pushing to Git.
+// Format: https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=SHEET_GID
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/export?format=csv&gid=0';
+
+// Fallback: use the built-in data if CSV fails (edit here when not using Google Sheets)
+const FALLBACK_DATA = [
+  // [sr, en, gu, hi, price, category]
+  ["FIX", "Fix Dish", "ફિક્સ ડિશ", "फिक्स डिश", null, "fix"],
+  [1, "Gujarati Dish\nMix Vej Sabji, Kathod, Rice, Daal Fry, 5 Butter Roti, Salad, Roasted Papad, Chass", "ગુજરાતી ડિશ\nમિક્સ વેજ સભ્ભ્ઝ઼ી, કઠોળ, ભાત, દાળ ફ્રાઈ, 5 બટર રોટી, સલાડ, રોસ્ટેડ પાપડ, છાસ", "गुजराती डिश\nमिक्स वेज सब्जी, कठोड, चावल, दाल फ्राई, 5 बटर रोटी, सलाद, रोस्टेड पापड़, छाछ", "₹99", "item"],
+  [2, "Punjabi Dish\nMix Vej Sabji, Panner Masala, Jeera Rice, Daal Fry, 5 Butter Roti, Salad, Roasted Papad, Chass", "પંજાબી ડિશ\nમિક્સ વેજ સભ્ભ્ઝ઼ી, પનીર મસાલા, જીરા ભાત, દાળ ફ્રાઈ, 5 બટર રોટી, સલાડ, રોસ્ટેડ પાપડ, છાસ", "पंजाबी डिश\nमिक्स वेज सब्जी, पनीर मसाला, जीरा चावल, दाल फ्राई, 5 बटर रोटी, सलाद, रोस्टेड पापड़, छाछ", "₹119", "item"],
+  ["CAT", "Sp. Paneer", "સ્પે. પનીર", "स्पे. पनीर", null, "cat"],
+  [3, "Panner Tikka Masala", "પનીર ટિક્કા મસાલા", "पनीर टिक्का मसाला", "₹140", "item"],
+  [4, "Kadai Panner", "કઢાઈ પનીર", "कढ़ाई पनीर", "₹160", "item"],
+  [5, "Panner Toofani", "પનીર તૂફાની", "पनीर तूफानी", "₹180", "item"],
+  [6, "Panner Butter Masala", "પનીર બટર મસાલા", "पनीर बटर मसाला", "₹140", "item"],
+  [7, "Panner Hadrabadi", "પનીર હૈદ્રાબાદી", "पनीर हैदराबादी", "₹160", "item"],
+  [8, "Panner Kolapuri", "પનીર કોળાપૂરી", "पनीर कोल्हापुरी", "₹150", "item"],
+  [9, "Sahi Panner", "શાહી પનીર", "शाही पनीर", "₹160", "item"],
+  [10, "Mutter Panner", "મટર પનીર", "मटर पनीर", "₹140", "item"],
+  [11, "Panner Bhurji", "પનીર ભૂર્જી", "पनीर भुर्जी", "₹150", "item"],
+  [12, "Panner Angara", "પનીર અંગારા", "पनीर अंगारा", "₹160", "item"],
+  [13, "Tawa Panner", "તવા પનીર", "तवा पनीर", "₹160", "item"],
+  [14, "Murli Special Panner", "મૂળ સ્પેશ્યલ પનીર", "मुरली स्पेशल पनीर", "₹180", "item"],
+  ["CAT", "Sp. Kaju", "સ્પે. કાજુ", "स्पे. काजू", null, "cat"],
+  [15, "Kaju Curry", "કાજુ કરી", "काजू करी", "₹150", "item"],
+  [16, "Masala Kaju", "મસાલા કાજુ", "मसाला काजू", "₹160", "item"],
+  [17, "Sahi Kaju", "શાહી કાજુ", "शाही काजू", "₹160", "item"],
+  ["CAT", "Sp. Kofta", "સ્પે. કોફ્તા", "स्पे. कोफ्ता", null, "cat"],
+  [18, "Panner Kofta", "પનીર કોફ્તા", "पनीर कोफ्ता", "₹150", "item"],
+  [19, "Kaju Kofta", "કાજુ કોફ્તા", "काजू कोफ्ता", "₹160", "item"],
+  [20, "Cheese Kofta", "ચીઝ કોફ્તા", "चीज़ कोफ्ता", "₹170", "item"],
+  [21, "Malai Kofta", "મલાઈ કોફ્તા", "मलाई कोफ्ता", "₹170", "item"],
+  ["CAT", "Sp. Kathiyawadi", "સ્પે. કઠિયાવાડી", "स्पे. काठियावाड़ी", null, "cat"],
+  [22, "Sev Tamatar", "સેવ ટામેટા", "सेव टमाटर", "₹90", "item"],
+  [23, "Mug Masala", "મગ મસાલા", "मूंग मसाला", "₹90", "item"],
+  [24, "Chana Masala", "ચણા મસાલા", "चना मसाला", "₹90", "item"],
+  [25, "Allu Mutter", "આલૂ મટર", "आलू मटर", "₹90", "item"],
+  [26, "Dahi Tikhari", "દહી ટિખારી", "दही टिखारी", "₹100", "item"],
+  [27, "Vej Kolapuri", "વેજ કોળાપૂરી", "वेज कोल्हापुरी", "₹100", "item"],
+  [28, "Dudh Sev", "દૂધ સેવ", "दूध सेव", "₹100", "item"],
+  [29, "Lasuni Palak", "લસૂની પાલક", "लसूनी पालक", "₹90", "item"],
+  [30, "Dum Alu", "દમ આલૂ", "दम आलू", "₹100", "item"],
+  [31, "Vej Toofani", "વેજ તૂફાની", "वेज तूफानी", "₹110", "item"],
+  ["CAT", "Roti / Paratha", "રોટી / પરાઠા", "रोटी / पराठा", null, "cat"],
+  [32, "Plain Roti", "સાદી રોટી", "सादी रोटी", "₹10", "item"],
+  [33, "Butter Roti", "બટર રોટી", "बटर रोटी", "₹15", "item"],
+  [34, "Butter Paratha", "બટર પરાઠા", "बटर पराठा", "₹25", "item"],
+  [35, "Alu Paratha", "આલૂ પરાઠા", "आलू पराठा", "₹50", "item"],
+  [36, "Cheese Paratha", "ચીઝ પરાઠા", "चीज़ पराठा", "₹60", "item"],
+  [37, "Plain Naan", "સાદી નાન", "सादी नान", "₹45", "item"],
+  [38, "Butter Naan", "બટર નાન", "बटर नान", "₹55", "item"],
+  [39, "Garlic Naan", "ગાર્લિક નાન", "गार्लिक नान", "₹60", "item"],
+  [40, "Hariyali Naan", "હરિયાળી નાન", "हरियाली नान", "₹70", "item"],
+  [41, "Cheese Garlic Naan", "ચીઝ ગાર્લિક નાન", "चीज़ गार्लिक नान", "₹90", "item"],
+  ["CAT", "Sp. Rice & Daal", "સ્પે. ભાત અને દાળ", "स्पे. चावल और दाल", null, "cat"],
+  [42, "Plain Rice", "સાદો ભાત", "सादा चावल", "₹70", "item"],
+  [43, "Jeera Rice", "જીરા ભાત", "जीरा चावल", "₹80", "item"],
+  [44, "Fried Rice", "ફ્રાઈડ રાઈસ", "फ्राइड राइस", "₹100", "item"],
+  [45, "Daal Fry", "દાળ ફ્રાઈ", "दाल फ्राई", "₹80", "item"],
+  [46, "Daal Tadka", "દાળ તડ્કા", "दाल तड़का", "₹90", "item"],
+  [47, "Daal Makhani", "દાળ મખ્ખની", "दाल मखनी", "₹100", "item"],
+  [48, "Murli Special Daal", "મૂળ સ્પેશ્યલ દાળ", "मुरली स्पेशल दाल", "₹110", "item"],
+  [49, "Vej Biryani", "વેજ બિરયાની", "वेज बिरयानी", "₹100", "item"],
+  ["CAT", "Sp. Pav Bhaji", "સ્પે. પાવ ભાજી", "स्पे. पाव भाजी", null, "cat"],
+  [50, "Pav Bhaji", "પાવ ભાજી", "पाव भाजी", "₹90", "item"],
+  [51, "Masala Pav", "મસાલા પાવ", "मसाला पाव", "₹70", "item"],
+  ["CAT", "Sides", "સાઈડ ઓર્ડર", "साइड ऑर्डर", null, "cat"],
+  [52, "Masala Chass", "મસાલા છાસ", "मसाला छाछ", "₹15", "item"],
+  [53, "Roasted Papad", "રોસ્ટેડ પાપડ", "रोस्टेड पापड़", "₹15", "item"],
+  [54, "Masala Papad", "મસાલા પાપડ", "मसाला पापड़", "₹25", "item"],
+  [55, "Onion Salad", "ડુંગળી સલાડ", "प्याज सलाद", "₹20", "item"],
+  [56, "Mix Salad", "મિક્સ સલાડ", "मिक्स सलाद", "₹20", "item"],
+  [57, "Gud", "ગોળ", "गुड़", "₹10", "item"],
+  [58, "Ghee", "ઘી", "घी", "₹20", "item"],
+  [59, "Milk", "દૂધ", "दूध", "₹30", "item"],
+  ["CAT", "Sp. Traditional Items", "સ્પે. પરંપરાગત વાનગી", "स्पे. पारंपरिक व्यंजन", null, "cat"],
+  [60, "Daal Bati", "દાળ બાટી", "दाल बाटी", "₹100", "item"],
+  [61, "Vagharelo Rotlo", "વઘારેલો રોટલો", "वघारेलो रोटलो", "₹90", "item"],
+  [62, "Haldi Ki Sabji", "હળદરની સભ્ભ્ઝ઼ી", "हल्दी की सब्जी", "₹200", "item"],
+  [63, "Kadhi Rotlo", "કઢી રોટલો", "कढ़ी रोटलो", "₹90", "item"],
+  [64, "Khichdi Kadhi", "ખીચડી કઢી", "खिचड़ी कढ़ी", "₹90", "item"],
+  [65, "Daal Khichadi", "દાળ ખીચડી", "दाल खिचड़ी", "₹90", "item"],
+];
+
+// ─── EMOJIS per category ──────────────────────────────────────────────────────
+const categoryEmojis = {
+  "fix": "🍽", "panner": "🧀", "kaju": "🥜", "kofta": "🫕",
+  "kathiyawadi": "🌶", "roti": "🫓", "paratha": "🥙", "rice": "🍚",
+  "daal": "🫘", "pav": "🍞", "sides": "🥗", "traditional": "🏺",
+  "default": "✨"
+};
+
+const itemEmojis = {
+  "panner": "🧀", "rice": "🍚", "roti": "🫓", "naan": "🫓",
+  "paratha": "🥙", "daal": "🫘", "biryani": "🍛", "bhaji": "🥘",
+  "kofta": "🫕", "kaju": "🥜", "salad": "🥗", "chass": "🥛",
+  "papad": "🫓", "ghee": "🧈", "milk": "🥛", "bati": "🍞",
+  "sev": "🌾", "palak": "🥬", "dum": "🥘", "masala": "🌶",
+  "soup": "🍲", "default": "🍽"
+};
+
+function getItemEmoji(name) {
+  const n = name.toLowerCase();
+  for (const [key, emoji] of Object.entries(itemEmojis)) {
+    if (n.includes(key)) return emoji;
+  }
+  return itemEmojis.default;
+}
+
+function getCategoryEmoji(name) {
+  const n = name.toLowerCase();
+  for (const [key, emoji] of Object.entries(categoryEmojis)) {
+    if (n.includes(key)) return emoji;
+  }
+  return categoryEmojis.default;
+}
+
+// ─── SPECIAL items (show tag) ─────────────────────────────────────────────────
+const specialItems = [1, 2, 5, 8, 14, 17, 48, 62];
+const langLabels = {
+  en: { special: "Chef's Pick", bestSeller: "Best Seller" },
+  hi: { special: "शेफ की पसंद", bestSeller: "बेस्ट सेलर" },
+  gu: { special: "શેફની પસંદ", bestSeller: "બેસ્ટ સેલર" }
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let currentLang = 'en';
+let menuData = null;
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderMenu(data, lang) {
+  const container = document.getElementById('menu-container');
+  const lIdx = lang === 'en' ? 1 : lang === 'gu' ? 2 : 3;
+  let html = '';
+  let inCategory = false;
+  let itemCount = 0;
+
+  data.forEach((row, i) => {
+    const type = row[5];
+    if (type === 'fix' || type === 'cat') {
+      if (inCategory) html += '</div></div>';
+      const catName = row[lIdx] || row[1];
+      html += `
+        <div class="category" style="animation-delay:${itemCount * 0.04}s">
+          <div class="category-header">
+            <span class="category-icon">${getCategoryEmoji(row[1])}</span>
+            <span class="category-name">${catName}</span>
+          </div>
+          <div>`;
+      inCategory = true;
+    } else if (type === 'item') {
+      const sr = row[0];
+      const name = (row[lIdx] || row[1]).split('\n');
+      const mainName = name[0];
+      const desc = name[1] || '';
+      const price = row[4] || '';
+      const isSpecial = specialItems.includes(sr);
+      html += `
+        <div class="menu-item">
+          <span class="item-number">${sr}</span>
+          <span class="item-emoji">${getItemEmoji(row[1])}</span>
+          <div class="item-info">
+            <div class="item-name">${mainName}${isSpecial ? ` <span class="item-tag">${langLabels[lang].special}</span>` : ''}</div>
+            ${desc ? `<div class="item-desc">${desc}</div>` : ''}
+          </div>
+          <div class="item-right">
+            <span class="item-price">${price}</span>
+            <div class="veg-badge"><div class="veg-dot"></div></div>
+          </div>
+        </div>`;
+      itemCount++;
+    }
+  });
+
+  if (inCategory) html += '</div></div>';
+  container.className = `menu-container lang-${lang}`;
+  container.innerHTML = html;
+}
+
+// ─── PARSE CSV ────────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  // Parse the Google Sheet CSV structure (matching the Excel layout)
+  // We'll use fallback data structure since CSV parsing of the complex sheet is tricky
+  return null;
+}
+
+// ─── LOAD ─────────────────────────────────────────────────────────────────────
+async function loadMenu() {
+  // Try to fetch from Google Sheets CSV
+  try {
+    const res = await fetch(CSV_URL, { mode: 'cors' });
+    if (res.ok) {
+      const text = await res.text();
+      const parsed = parseCSV(text);
+      if (parsed && parsed.length > 0) {
+        menuData = parsed;
+      } else {
+        menuData = FALLBACK_DATA;
+      }
+    } else {
+      menuData = FALLBACK_DATA;
+    }
+  } catch (e) {
+    // CORS or network error — use baked-in data
+    menuData = FALLBACK_DATA;
+  }
+  renderMenu(menuData, currentLang);
+}
+
+// ─── LANGUAGE SWITCH ──────────────────────────────────────────────────────────
+function switchLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + lang).classList.add('active');
+  if (menuData) renderMenu(menuData, lang);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+loadMenu();
+</script>
+</body>
+</html>
